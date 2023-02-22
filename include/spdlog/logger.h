@@ -165,6 +165,12 @@ public:
     }
 
     template<typename... Args>
+    void hardwarefailure(fmt::format_string<Args...> fmt, Args &&...args)
+    {
+        log(level::hardwarefailure, fmt, std::forward<Args>(args)...);
+    }
+
+    template<typename... Args>
     void error(fmt::format_string<Args...> fmt, Args &&...args)
     {
         log(level::err, fmt, std::forward<Args>(args)...);
@@ -174,6 +180,24 @@ public:
     void critical(fmt::format_string<Args...> fmt, Args &&...args)
     {
         log(level::critical, fmt, std::forward<Args>(args)...);
+    }
+
+    template<typename... Args>
+    void alert(fmt::format_string<Args...> fmt, Args &&...args)
+    {
+        log(level::alert, fmt, std::forward<Args>(args)...);
+    }
+
+    template<typename... Args>
+    void fatal(fmt::format_string<Args...> fmt, Args &&...args)
+    {
+        log(level::fatal, fmt, std::forward<Args>(args)...);
+    }
+
+    template<typename... Args>
+    void emergency(fmt::format_string<Args...> fmt, Args &&...args)
+    {
+        log(level::emergency, fmt, std::forward<Args>(args)...);
     }
 
 #ifdef SPDLOG_WCHAR_TO_UTF8_SUPPORT
@@ -251,6 +275,12 @@ public:
     }
 
     template<typename T>
+    void hardwarefailure(const T &msg)
+    {
+        log(level::hardwarefailure, msg);
+    }
+
+    template<typename T>
     void error(const T &msg)
     {
         log(level::err, msg);
@@ -260,6 +290,24 @@ public:
     void critical(const T &msg)
     {
         log(level::critical, msg);
+    }
+
+    template<typename T>
+    void alert(const T &msg)
+    {
+        log(level::alert, msg);
+    }
+
+    template<typename T>
+    void fatal(const T &msg)
+    {
+        log(level::fatal, msg);
+    }
+
+    template<typename T>
+    void emergency(const T &msg)
+    {
+        log(level::emergency, msg);
     }
 
     // return true logging is enabled for the given level.
