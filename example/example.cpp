@@ -15,11 +15,16 @@
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"
+#include "spdlog/sinks/rotating_file_sink.h"
 
 int main() {
 
-    auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-    auto logger = std::make_shared<spdlog::logger>("console", console_sink);
+    // auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+    // auto logger = std::make_shared<spdlog::logger>("console", console_sink);
+
+    auto max_size = 1048576 * 5;
+    auto max_files = 3;
+    auto logger = spdlog::rotating_logger_mt("some_logger_name", "logs/rotating.txt", max_size, max_files);
 
     logger->trace("ECU-UUID: {} APP-UUID: {} SW-ID: LOG-LEVEL: {} ECU-TYPE: {} APP-TYPE: {} FEATURE: {} SECURITY: {}",2056,23456,1208,spdlog::level::trace,"ARM","TEST","WIFI","HIGH");
     logger->debug("ECU-UUID: {} APP-UUID: {} SW-ID: LOG-LEVEL: {} ECU-TYPE: {} APP-TYPE: {} FEATURE: {} SECURITY: {}",2056,23456,1208,spdlog::level::debug,"ARM","TEST","WIFI","HIGH");
